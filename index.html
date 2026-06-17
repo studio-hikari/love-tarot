@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ルナ・アムール|無料恋愛タロット占い - 相手の気持ち・復縁・片思い</title>
+<meta name="description" content="本格恋愛タロット占いが無料で何度でも。今日の恋愛運、相手の気持ち、恋の行方を大アルカナ22枚で占います。片思い・復縁・出会いの悩みに。">
+<meta property="og:title" content="ルナ・アムール|無料恋愛タロット占い">
+<meta property="og:description" content="心に想い人を浮かべて、カードを引いてください。恋の答えがここに。">
+<meta property="og:type" content="website">
+
+<!-- ============================================================
+  ▼ Google AdSense 審査通過後、ここに AdSense のスクリプトタグを貼り付けてください
+  例:
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --night:#160f2d;        /* 夜空の紫紺 */
+  --panel:#241a44;        /* 深紫のパネル */
+  --panel-2:#2e2255;
+  --gold:#d8b46a;         /* 金箔 */
+  --gold-soft:#b89a5c;
+  --lavender:#b3a4d6;     /* 月光ラベンダー */
+  --ink:#f3eeff;          /* 本文の白 */
+  --rose:#e0708f;         /* 薔薇(逆位置・恋アクセント) */
+  --radius:14px;
+  font-size:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Zen Kaku Gothic New',sans-serif;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, #3a2a6e 0%, transparent 60%),
+    var(--night);
+  color:var(--ink);
+  min-height:100vh;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+h1,h2,h3,.serif{font-family:'Shippori Mincho',serif;font-weight:600;letter-spacing:.06em}
+
+/* ---- 星空 ---- */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:.6;animation:twinkle 3.6s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.8}}
+@media (prefers-reduced-motion: reduce){
+  .star{animation:none}
+  *{transition:none!important;animation-duration:.01ms!important}
+}
+
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:0 16px}
+
+/* ---- ヘッダー ---- */
+header{text-align:center;padding:40px 0 18px}
+.moon{font-size:1.6rem;color:var(--gold);letter-spacing:.5em;text-indent:.5em}
+header h1{font-size:clamp(1.7rem,5vw,2.5rem);color:var(--gold);margin:6px 0 2px}
+header .tagline{color:var(--lavender);font-size:.9rem;letter-spacing:.15em}
+.gold-rule{width:160px;height:1px;margin:18px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* ---- 広告枠 ---- */
+.ad-slot{
+  max-width:728px;margin:22px auto;min-height:90px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px dashed rgba(216,180,106,.35);border-radius:8px;
+  color:rgba(179,164,214,.5);font-size:.75rem;letter-spacing:.1em;
+  background:rgba(255,255,255,.02);
+}
+.ad-slot.rect{max-width:336px;min-height:280px}
+
+/* ---- 画面切替 ---- */
+.screen{display:none;animation:fadein .5s ease}
+.screen.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---- スプレッド選択 ---- */
+.intro{text-align:center;color:var(--lavender);font-size:.95rem;margin-bottom:26px}
+.spreads{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:34px}
+.spread-card{
+  background:linear-gradient(160deg,var(--panel),var(--panel-2));
+  border:1px solid rgba(216,180,106,.3);border-radius:var(--radius);
+  padding:24px 20px;cursor:pointer;text-align:left;color:var(--ink);
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  font-family:inherit;
+}
+.spread-card:hover,.spread-card:focus-visible{
+  transform:translateY(-4px);border-color:var(--gold);
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+}
+.spread-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.spread-card .n{color:var(--gold);font-size:.75rem;letter-spacing:.2em}
+.spread-card h3{font-size:1.15rem;margin:4px 0 8px;color:var(--gold)}
+.spread-card p{font-size:.85rem;color:var(--lavender)}
+
+/* ---- リーディング画面 ---- */
+.reading-head{text-align:center;margin-bottom:10px}
+.reading-head h2{color:var(--gold);font-size:1.4rem}
+.instruction{text-align:center;color:var(--lavender);font-size:.92rem;min-height:2.6em;margin-bottom:8px}
+.instruction strong{color:var(--gold)}
+
+/* 扇形デッキ */
+.fan{
+  position:relative;height:230px;max-width:680px;margin:0 auto 8px;
+}
+.fan .tcard{
+  position:absolute;left:50%;bottom:10px;
+  width:64px;height:102px;margin-left:-32px;
+  transform-origin:50% 130%;
+  transform:rotate(var(--rot)) translateY(0);
+  transition:transform .3s ease, opacity .3s ease;
+  cursor:pointer;border:none;background:transparent;padding:0;
+}
+.fan .tcard:hover .back,.fan .tcard:focus-visible .back{box-shadow:0 0 18px rgba(216,180,106,.8)}
+.fan .tcard:hover{transform:rotate(var(--rot)) translateY(-16px)}
+.fan .tcard:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fan .tcard.picked{opacity:0;pointer-events:none;transform:rotate(var(--rot)) translateY(-60px)}
+
+/* カードの裏面(金箔の星紋) */
+.back{
+  width:100%;height:100%;border-radius:7px;
+  border:1.5px solid var(--gold);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(216,180,106,.55) 0 2px, transparent 3px),
+    radial-gradient(circle at 20% 25%, rgba(216,180,106,.35) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 80% 25%, rgba(216,180,106,.35) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 20% 75%, rgba(216,180,106,.35) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 80% 75%, rgba(216,180,106,.35) 0 1.5px, transparent 2.5px),
+    repeating-conic-gradient(from 0deg, #2c2057 0 15deg, #251a4a 15deg 30deg);
+  box-shadow:0 4px 10px rgba(0,0,0,.5);
+}
+
+/* 選択スロット */
+.slots{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin:14px 0 22px}
+.slot{width:84px;text-align:center}
+.slot .frame{
+  width:84px;height:132px;border-radius:9px;
+  border:1.5px dashed rgba(216,180,106,.4);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.02);
+}
+.slot .frame .back{width:78px;height:124px;animation:settle .35s ease}
+@keyframes settle{from{transform:scale(1.15);opacity:0}to{transform:scale(1);opacity:1}}
+.slot .label{font-size:.72rem;color:var(--lavender);margin-top:6px;letter-spacing:.05em}
+
+.center{text-align:center}
+.btn{
+  font-family:'Shippori Mincho',serif;font-size:1rem;letter-spacing:.15em;
+  color:var(--night);background:linear-gradient(160deg,#ecd29a,var(--gold));
+  border:none;border-radius:999px;padding:13px 42px;cursor:pointer;
+  box-shadow:0 6px 18px rgba(216,180,106,.3);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(216,180,106,.45)}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold);box-shadow:none}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+
+/* ---- 結果画面 ---- */
+.result-item{
+  display:flex;gap:20px;align-items:flex-start;
+  background:linear-gradient(160deg,var(--panel),var(--panel-2));
+  border:1px solid rgba(216,180,106,.25);border-radius:var(--radius);
+  padding:22px;margin-bottom:18px;
+}
+.cardface{
+  flex:0 0 96px;width:96px;height:152px;border-radius:9px;
+  border:1.5px solid var(--gold);
+  background:linear-gradient(170deg,#352866,#241a44);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;box-shadow:0 6px 16px rgba(0,0,0,.5);
+  animation:flip .6s ease;
+}
+@keyframes flip{from{transform:rotateY(90deg)}to{transform:rotateY(0)}}
+.cardface .num{font-family:'Shippori Mincho',serif;color:var(--gold);font-size:.75rem;letter-spacing:.15em}
+.cardface .sym{font-size:2.1rem;line-height:1}
+.cardface .nm{font-family:'Shippori Mincho',serif;color:var(--ink);font-size:.78rem}
+.cardface.rev{transform:rotate(180deg);animation:fliprev .6s ease}
+@keyframes fliprev{from{transform:rotateY(90deg) rotate(180deg)}to{transform:rotateY(0) rotate(180deg)}}
+.result-body{flex:1;min-width:0}
+.pos-label{color:var(--gold);font-size:.78rem;letter-spacing:.25em;margin-bottom:2px}
+.result-body h3{font-size:1.2rem;margin-bottom:2px}
+.orient{display:inline-block;font-size:.72rem;letter-spacing:.1em;border-radius:999px;padding:1px 12px;margin-bottom:10px}
+.orient.up{color:var(--gold);border:1px solid var(--gold)}
+.orient.rev{color:var(--rose);border:1px solid var(--rose)}
+.result-body p{font-size:.92rem;color:#e6dff7}
+
+.summary{
+  border:1px solid var(--gold);border-radius:var(--radius);
+  padding:26px;margin:26px 0;text-align:center;
+  background:rgba(216,180,106,.06);
+}
+.summary h3{color:var(--gold);letter-spacing:.3em;font-size:1rem;margin-bottom:10px}
+.summary p{font-size:.95rem}
+
+.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:30px 0}
+
+/* ---- フッター ---- */
+footer{margin-top:50px;padding:30px 0 40px;border-top:1px solid rgba(216,180,106,.2);text-align:center}
+footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+footer a{color:var(--lavender);font-size:.82rem;text-decoration:none;cursor:pointer}
+footer a:hover{color:var(--gold)}
+footer .copy{color:rgba(179,164,214,.5);font-size:.75rem}
+
+/* ---- モーダル ---- */
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(10,6,24,.8);padding:20px}
+.modal.open{display:flex}
+.modal-box{background:var(--panel);border:1px solid var(--gold);border-radius:var(--radius);max-width:640px;max-height:80vh;overflow-y:auto;padding:30px}
+.modal-box h2{color:var(--gold);font-size:1.2rem;margin-bottom:14px}
+.modal-box h3{color:var(--gold);font-size:.95rem;margin:16px 0 6px}
+.modal-box p,.modal-box li{font-size:.85rem;color:#e6dff7}
+.modal-box ul{padding-left:1.4em}
+.modal-box .close{margin-top:20px}
+
+@media (max-width:560px){
+  .fan{height:190px}
+  .fan .tcard{width:46px;height:74px;margin-left:-23px}
+  .result-item{gap:14px;padding:16px}
+  .cardface{flex-basis:78px;width:78px;height:124px}
+  .cardface .sym{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="wrap">
+
+<header>
+  <div class="moon">☽ ✦ ☾</div>
+  <h1>ルナ・アムール</h1>
+  <p class="tagline">― 月が照らす、あなたの恋のゆくえ ―</p>
+  <div class="gold-rule"></div>
+</header>
+
+<!-- ▼ 広告枠①:ヘッダー下バナー。AdSenseのディスプレイ広告コードに差し替えてください -->
+<div class="ad-slot">広告スペース(728×90 / レスポンシブ)</div>
+
+<!-- ========== スプレッド選択 ========== -->
+<main>
+<section class="screen active" id="screen-home">
+  <p class="intro">占いたいテーマを選んでください。<br>大アルカナ22枚があなたの恋に答えます。</p>
+  <div class="spreads" id="spread-list"></div>
+</section>
+
+<!-- ========== カード選択 ========== -->
+<section class="screen" id="screen-reading">
+  <div class="reading-head"><h2 id="reading-title"></h2></div>
+  <p class="instruction" id="instruction"></p>
+  <div class="fan" id="fan"></div>
+  <div class="slots" id="slots"></div>
+  <div class="center">
+    <button class="btn" id="btn-reveal" disabled>カードをめくる</button>
+    &nbsp;
+    <button class="btn ghost" id="btn-back">戻る</button>
+  </div>
+</section>
+
+<!-- ========== 結果 ========== -->
+<section class="screen" id="screen-result">
+  <div class="reading-head"><h2 id="result-title"></h2></div>
+  <div id="result-list"></div>
+
+  <!-- ▼ 広告枠②:結果直下レクタングル。最も視認性が高い位置です -->
+  <div class="ad-slot rect">広告スペース(336×280)</div>
+
+  <div class="summary" id="summary"></div>
+  <div class="actions">
+    <button class="btn" id="btn-again">同じテーマでもう一度</button>
+    <button class="btn ghost" id="btn-home">他のテーマを占う</button>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="links">
+    <a id="link-privacy">プライバシーポリシー</a>
+    <a id="link-disclaimer">免責事項</a>
+  </div>
+  <p class="copy">© 2026 ルナ・アムール 恋愛タロット占い</p>
+
+  <!-- ▼ 広告枠③:フッター上 -->
+  <div class="ad-slot" style="margin-top:22px">広告スペース(レスポンシブ)</div>
+</footer>
+</div>
+
+<!-- プライバシーポリシー -->
+<div class="modal" id="modal-privacy" role="dialog" aria-modal="true" aria-labelledby="pp-title">
+  <div class="modal-box">
+    <h2 id="pp-title">プライバシーポリシー</h2>
+    <h3>広告の配信について</h3>
+    <p>当サイトは第三者配信の広告サービス(Google AdSense)を利用しています。広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookieを使用することがあります。Cookieを無効にする設定およびGoogle AdSenseに関する詳細は「<a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" rel="noopener" style="color:var(--gold)">広告 – ポリシーと規約 – Google</a>」をご確認ください。</p>
+    <h3>アクセス解析について</h3>
+    <p>当サイトでは、サイトの改善のためにアクセス解析ツールを利用する場合があります。このデータは匿名で収集されており、個人を特定するものではありません。</p>
+    <h3>個人情報の取り扱い</h3>
+    <p>当サイトの占いはすべてお使いのブラウザ内で完結しており、入力内容や占い結果がサーバーに送信・保存されることはありません。</p>
+    <div class="center close"><button class="btn ghost" data-close>閉じる</button></div>
+  </div>
+</div>
+
+<!-- 免責事項 -->
+<div class="modal" id="modal-disclaimer" role="dialog" aria-modal="true" aria-labelledby="dc-title">
+  <div class="modal-box">
+    <h2 id="dc-title">免責事項</h2>
+    <p>当サイトの占い結果はエンターテインメントを目的としたものであり、その内容の正確性・有用性を保証するものではありません。占い結果に基づいて行われた行動によって生じたいかなる損害についても、当サイトは責任を負いかねます。大切な決断は、ご自身の判断で行ってください。</p>
+    <div class="center close"><button class="btn ghost" data-close>閉じる</button></div>
+  </div>
+</div>
+
+<script>
+/* ================= 大アルカナ22枚(恋愛の意味) ================= */
+const CARDS=[
+{n:"0",name:"愚者",sym:"🌬️",up:"新しい恋の始まりを告げるカード。先のことを考えすぎず、心が動くままに一歩踏み出すことで、想像以上の展開が待っています。",rv:"思いつきの行動が誤解を招きそう。気持ちが先走って相手を置き去りにしていないか、一度立ち止まってみて。"},
+{n:"I",name:"魔術師",sym:"✨",up:"あなたの言葉が魔法のように相手の心に届く時。積極的に話しかけ、連絡を取ることで恋が大きく動き出します。",rv:"言葉だけが上滑りしている暗示。駆け引きやテクニックよりも、不器用でも本音を伝えることが鍵になります。"},
+{n:"II",name:"女教皇",sym:"🌙",up:"直感が冴えている時。相手の小さな仕草から本心を感じ取れるはず。静かに見守る姿勢が信頼を育てます。",rv:"考えすぎて疑心暗鬼になっているかも。完璧を求めず、相手のありのままを受け入れる余裕を持って。"},
+{n:"III",name:"女帝",sym:"🌹",up:"愛され、満たされる豊かな時期。あなたの魅力が自然とあふれ、相手はその温かさに惹かれています。",rv:"愛情が依存や独占欲に傾いている暗示。相手に求めるばかりでなく、自分自身を満たす時間も大切に。"},
+{n:"IV",name:"皇帝",sym:"👑",up:"頼りがいのある安定した関係を築ける時。相手はあなたとの将来を真剣に考え始めています。",rv:"意地やプライドが素直さを邪魔しています。正しさより、相手の気持ちに寄り添うことを優先して。"},
+{n:"V",name:"教皇",sym:"🕊️",up:"誠実で真面目な愛が育つカード。結婚や将来を見据えた、信頼に基づく関係へと進んでいきます。",rv:"常識や世間体にとらわれて、本当の気持ちが見えなくなっているかも。二人だけの答えを探して。"},
+{n:"VI",name:"恋人",sym:"💞",up:"恋の成就を示す最良のカードのひとつ。心が通じ合い、お互いを選び合う喜びに包まれるでしょう。",rv:"心の迷いや誘惑を示しています。決めきれない気持ちが関係を曖昧にしているなら、自分の本心と向き合う時。"},
+{n:"VII",name:"戦車",sym:"🏇",up:"情熱のままに進んで吉。ライバルがいても恐れず、あなたから動くことで恋の主導権を握れます。",rv:"気持ちが空回りしている暗示。押すばかりでは相手が引いてしまうかも。一呼吸おいてペースを整えて。"},
+{n:"VIII",name:"力",sym:"🦁",up:"焦らず、粘り強く愛を注ぐことで相手の心が開きます。穏やかな強さが深い信頼を生む時。",rv:"無理をして本当の自分を抑え込んでいませんか。弱さを見せることも、愛を深めるひとつの勇気です。"},
+{n:"IX",name:"隠者",sym:"🏮",up:"一人で静かに考える時間が、恋の答えを照らします。焦って動くより、自分の気持ちを確かめて。",rv:"心を閉ざしてすれ違いが生まれている暗示。殻にこもらず、小さなことからでも気持ちを言葉にして。"},
+{n:"X",name:"運命の輪",sym:"🎡",up:"運命が大きく動く時。偶然の再会や思いがけない出会いなど、チャンスの流れに乗りましょう。",rv:"タイミングのずれを感じる時期。今は無理に動かず、次に風向きが変わる瞬間を待つのが得策です。"},
+{n:"XI",name:"正義",sym:"⚖️",up:"対等でバランスの取れた関係が築ける時。誠実に向き合えば、あなたの真心は正当に報われます。",rv:"どちらかが我慢しすぎている関係かも。不満を溜め込まず、公平な関係を話し合う勇気を。"},
+{n:"XII",name:"吊るされた男",sym:"🌗",up:"今は耐える時。すぐに結果は出なくても、あなたの献身は確実に相手の心に届いています。",rv:"報われない我慢を続けている暗示。犠牲を払うだけの恋になっていないか、立ち止まって考えてみて。"},
+{n:"XIII",name:"死神",sym:"🦋",up:"ひとつの区切りと、再生のカード。終わりは新しい関係の始まり。過去を手放すことで恋が生まれ変わります。",rv:"終わったことへの未練が、新しい幸せの入り口を塞いでいます。執着を手放す時が来ています。"},
+{n:"XIV",name:"節制",sym:"🫖",up:"穏やかで心地よい愛が流れる時。価値観が自然に溶け合い、一緒にいるだけで安らげる関係に。",rv:"気持ちのすれ違いや温度差を感じる暗示。相手のペースに合わせる柔らかさを思い出して。"},
+{n:"XV",name:"悪魔",sym:"🥀",up:"抗えない魅力に惹かれ合う、激しい関係。ただしその情熱が執着や腐れ縁に変わらないよう注意を。",rv:"悪縁やしがらみから解放される時。目が覚めるような気づきが、あなたを本当の幸せへ導きます。"},
+{n:"XVI",name:"塔",sym:"⚡",up:"予想外の出来事が関係を揺さぶる時。衝撃は痛みを伴いますが、偽りのない関係を築き直すきっかけに。",rv:"小さなひび割れを見て見ぬふりしている暗示。問題が大きくなる前に、正直な話し合いを。"},
+{n:"XVII",name:"星",sym:"⭐",up:"希望に満ちた恋のカード。理想としていた愛の形に近づいています。願いは星に届いています。",rv:"理想と現実のギャップに疲れていませんか。完璧な相手を探すより、目の前の小さな幸せに目を向けて。"},
+{n:"XVIII",name:"月",sym:"🌕",up:"不安や疑いが心を曇らせる時。見えないものを恐れず、時間をかけて相手の本心を確かめましょう。",rv:"霧が晴れるように誤解が解けていきます。胸の奥の不安は、もうすぐ安心へと変わるでしょう。"},
+{n:"XIX",name:"太陽",sym:"☀️",up:"祝福に満ちた最高のカード。隠しごとのない明るい愛が実り、二人の関係は周囲からも祝福されます。",rv:"幸せの形にこだわりすぎて空回り気味。肩の力を抜けば、本来の輝きが戻ってきます。"},
+{n:"XX",name:"審判",sym:"🎺",up:"復縁・再会を象徴するカード。一度離れた縁が再び結ばれ、恋が新しい形でよみがえります。",rv:"過去の恋の記憶にとらわれて、今を見失っているかも。振り返るのは、前に進むためだけに。"},
+{n:"XXI",name:"世界",sym:"🌏",up:"愛の完成を示す大円満のカード。お互いがかけがえのない存在となり、ひとつの幸せな結末を迎えます。",rv:"あと一歩のところで足踏みしている状態。マンネリを感じたら、二人で新しいことを始めてみて。"}
+];
+
+/* ポジティブ度(総合メッセージ用): 1=追い風 0=注意 */
+const TONE_UP=[1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,0,1,0,1,1,1];
+const TONE_RV=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0];
+
+/* ================= スプレッド定義 ================= */
+const SPREADS=[
+{id:"one",icon:"☽",title:"今日の恋愛運",desc:"1枚引き。今日のあなたの恋を導くメッセージを受け取ります。",
+ positions:["今日のメッセージ"]},
+{id:"three",icon:"✦",title:"恋の流れ",desc:"3枚引き。過去・現在・未来から、二人の恋の流れを読み解きます。",
+ positions:["過去","現在","未来"]},
+{id:"feelings",icon:"❦",title:"相手の気持ち",desc:"4枚引き。あの人の本心と、二人の今、そして取るべき道を占います。",
+ positions:["あなたの気持ち","相手の気持ち","二人の現状","アドバイス"]},
+{id:"destiny",icon:"♔",title:"恋の行方",desc:"5枚引き。現状から最終結果まで、この恋の運命を深く占う本格スプレッド。",
+ positions:["現状","障害となるもの","相手の本心","取るべき行動","最終結果"]}
+];
+
+/* ================= 状態 ================= */
+let current=null;      // 選択中スプレッド
+let deck=[];           // シャッフル済み {card, rev}
+let picked=[];         // 選んだカード
+
+const $=id=>document.getElementById(id);
+const screens={home:$("screen-home"),reading:$("screen-reading"),result:$("screen-result")};
+function show(name){
+  Object.values(screens).forEach(s=>s.classList.remove("active"));
+  screens[name].classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ---- 星空生成 ---- */
+(function(){
+  const box=$("stars");
+  for(let i=0;i<70;i++){
+    const s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*100+"%";
+    s.style.top=Math.random()*100+"%";
+    s.style.animationDelay=(Math.random()*4)+"s";
+    s.style.transform=`scale(${.5+Math.random()*1.2})`;
+    box.appendChild(s);
+  }
+})();
+
+/* ---- スプレッド一覧 ---- */
+(function(){
+  const list=$("spread-list");
+  SPREADS.forEach(sp=>{
+    const b=document.createElement("button");
+    b.className="spread-card";
+    b.innerHTML=`<div class="n">${sp.icon} ${sp.positions.length}枚引き</div>
+      <h3>${sp.title}</h3><p>${sp.desc}</p>`;
+    b.addEventListener("click",()=>startReading(sp));
+    list.appendChild(b);
+  });
+})();
+
+/* ---- リーディング開始 ---- */
+function startReading(sp){
+  current=sp;
+  picked=[];
+  // シャッフル + 正逆(50%)
+  deck=CARDS.map(c=>({card:c,rev:Math.random()<.5}));
+  for(let i=deck.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [deck[i],deck[j]]=[deck[j],deck[i]];
+  }
+  $("reading-title").textContent=sp.title;
+  updateInstruction();
+  buildFan();
+  buildSlots();
+  $("btn-reveal").disabled=true;
+  show("reading");
+}
+
+function updateInstruction(){
+  const need=current.positions.length-picked.length;
+  $("instruction").innerHTML= need>0
+    ? `想い人を心に浮かべながら、直感でカードを <strong>あと${need}枚</strong> 選んでください`
+    : `カードが揃いました。心の準備ができたら、めくってください`;
+}
+
+function buildFan(){
+  const fan=$("fan");
+  fan.innerHTML="";
+  const total=22, range=110;            // 扇の開き角度
+  deck.forEach((d,i)=>{
+    const rot=-range/2 + range*(i/(total-1));
+    const b=document.createElement("button");
+    b.className="tcard";
+    b.style.setProperty("--rot",rot+"deg");
+    b.setAttribute("aria-label","伏せられたカード "+(i+1));
+    b.innerHTML=`<div class="back"></div>`;
+    b.addEventListener("click",()=>pickCard(b,d));
+    fan.appendChild(b);
+  });
+}
+
+function buildSlots(){
+  const slots=$("slots");
+  slots.innerHTML="";
+  current.positions.forEach(p=>{
+    const div=document.createElement("div");
+    div.className="slot";
+    div.innerHTML=`<div class="frame"></div><div class="label">${p}</div>`;
+    slots.appendChild(div);
+  });
+}
+
+function pickCard(btn,d){
+  if(picked.length>=current.positions.length || btn.classList.contains("picked")) return;
+  btn.classList.add("picked");
+  picked.push(d);
+  // スロットに裏面を置く
+  const frame=document.querySelectorAll(".slot .frame")[picked.length-1];
+  frame.innerHTML=`<div class="back"></div>`;
+  updateInstruction();
+  if(picked.length===current.positions.length) $("btn-reveal").disabled=false;
+}
+
+/* ---- 結果表示 ---- */
+$("btn-reveal").addEventListener("click",()=>{
+  $("result-title").textContent=current.title+" の結果";
+  const list=$("result-list");
+  list.innerHTML="";
+  picked.forEach((d,i)=>{
+    const c=d.card;
+    const item=document.createElement("div");
+    item.className="result-item";
+    item.style.animationDelay=(i*0.1)+"s";
+    item.innerHTML=`
+      <div class="cardface ${d.rev?"rev":""}">
+        <div class="num">${c.n}</div>
+        <div class="sym">${c.sym}</div>
+        <div class="nm">${c.name}</div>
+      </div>
+      <div class="result-body">
+        <div class="pos-label">${current.positions[i]}</div>
+        <h3 class="serif">${c.name}</h3>
+        <span class="orient ${d.rev?"rev":"up"}">${d.rev?"逆位置":"正位置"}</span>
+        <p>${d.rev?c.rv:c.up}</p>
+      </div>`;
+    list.appendChild(item);
+  });
+  $("summary").innerHTML=buildSummary();
+  show("result");
+});
+
+function buildSummary(){
+  const last=picked[picked.length-1];
+  const idx=CARDS.indexOf(last.card);
+  const positive=last.rev?TONE_RV[idx]:TONE_UP[idx];
+  const score=picked.reduce((a,d)=>{
+    const i=CARDS.indexOf(d.card);
+    return a+(d.rev?TONE_RV[i]:TONE_UP[i]);
+  },0)/picked.length;
+
+  let msg;
+  if(positive && score>=.6){
+    msg="カードたちは追い風を告げています。この恋には温かな光が差しており、あなたが素直な気持ちで動くほど流れは良くなっていくでしょう。自分を信じて、一歩を踏み出してください。";
+  }else if(positive){
+    msg="途中には乗り越えるべき壁があるものの、最後のカードは希望を示しています。焦らず一つずつ向き合っていけば、この恋は良い方向へと進んでいくでしょう。";
+  }else if(score>=.5){
+    msg="流れそのものは悪くありませんが、最後のカードは「立ち止まって考える時」と告げています。今は結果を急がず、自分の心と相手の気持ちを丁寧に確かめる期間にしましょう。";
+  }else{
+    msg="今は試練の時かもしれません。けれどタロットの「困難」は、いつも気づきと再生の入り口でもあります。無理に動くより、自分自身を大切にすることが運気を変える鍵になります。";
+  }
+  return `<h3>✦ 総合メッセージ ✦</h3><p>${msg}</p>`;
+}
+
+/* ---- ナビゲーション ---- */
+$("btn-back").addEventListener("click",()=>show("home"));
+$("btn-home").addEventListener("click",()=>show("home"));
+$("btn-again").addEventListener("click",()=>startReading(current));
+
+/* ---- モーダル ---- */
+function bindModal(linkId,modalId){
+  $(linkId).addEventListener("click",()=>$(modalId).classList.add("open"));
+  $(modalId).addEventListener("click",e=>{
+    if(e.target===$(modalId)||e.target.hasAttribute("data-close")) $(modalId).classList.remove("open");
+  });
+}
+bindModal("link-privacy","modal-privacy");
+bindModal("link-disclaimer","modal-disclaimer");
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape") document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open"));
+});
+</script>
+</body>
+</html>
